@@ -1,10 +1,16 @@
 Alchemy Websockets
 =============
-
-A websocket server built in C# to be extremely efficient and scalable over high 
-numbers of connections.
+A javascript client library built to make interfacing with the 
+(Alchemy Websockets)[https://github.com/Olivine-Labs/Alchemy-Websockets] server
+library easier. It should connect to most other websocket implementations as
+well.
 
 It follows most jslint / gjslint conventions.
+
+I suggest using the (web-socket-js)[https://github.com/gimite/web-socket-js]
+library for compatibility with non-html5 browsers; we do a tiny bit of logic 
+if this is included. We also suggest the (http://www.modernizr.com/)[Modernizr] 
+library to enable feature checking.
 
 Usage
 -------
