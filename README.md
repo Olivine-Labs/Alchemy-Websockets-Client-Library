@@ -9,7 +9,7 @@ It follows most jslint / gjslint conventions.
 
 I suggest using the [web-socket-js](https://github.com/gimite/web-socket-js)
 library for compatibility with non-html5 browsers; we do a tiny bit of logic 
-if this is included. We also suggest the [Modernizr] (http://www.modernizr.com/)
+if this is included. We also suggest the [Modernizr](http://www.modernizr.com/)
 library to enable feature checking.
 
 Usage
