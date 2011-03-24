@@ -1,4 +1,4 @@
-Alchemy Websockets
+Alchemy Websockets Client Library
 =============
 A javascript client library built to make interfacing with the 
 [Alchemy Websockets](https://github.com/Olivine-Labs/Alchemy-Websockets) server
