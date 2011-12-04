@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   function Alchemy(options) {
+    
+
     // thanks, John. http://ejohn.org/blog/simple-class-instantiation/
     if (!this instanceof Alchemy) {
       return new Alchemy(options);
@@ -164,11 +166,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         var diff = now - this._lastReceive;
 
         if (this._options.DebugMode) {
-          console.log("Heartbeat fired. It's been " + diff + 'ms since the last one.');
+          console.log('Heartbeat fired. ' + diff + 'ms since the last one.');
         }
 
         if (diff >= this._options.Heartbeat * 1000) {
-          // "7" is the magical hearbeat command to Alchemy that says "I'm not data, I'm just a heartbeat."
           this._socket.send(instance._options.HeartbeatPackage);
         }
       }
@@ -210,4 +211,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   window.Alchemy = Alchemy;
   window.MergeDefaults = MergeDefaults;
+
+  if(window.MozWebSocket){
+    window.WebSocket = MozWebSocket;
+  }
 })(window);
+
