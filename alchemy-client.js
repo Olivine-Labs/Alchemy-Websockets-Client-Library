@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   function Alchemy(options) {
-    
-
     // thanks, John. http://ejohn.org/blog/simple-class-instantiation/
     if (!this instanceof Alchemy) {
       return new Alchemy(options);
@@ -41,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         if (!!Modernizr) {
           if (Modernizr.websockets) {
             this.SocketType = Alchemy.prototype.SocketTypes.WebSocket;
-          } else if (!Modernizr.websockets && !!window.WebSocket) {
+          } else if (!Modernizr.websockets) {
             this.SocketType = Alchemy.prototype.SocketTypes.FlashSocket;
           }
         }
