@@ -59,7 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   Alchemy.prototype = {
     _socket: {},
-    _heartbeat: {},
     _lastReceive: (new Date()).getTime(),
     _options: {},
 
@@ -117,12 +116,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     _OnOpen: function() {
       var instance = this;
-      window.clearTimeout(instance._heartbeat);
-      this._heartbeat = window.setTimeout(function() { instance._HeartBeat(); }, instance._options.Heartbeat * 1000);
       this.SocketState = Alchemy.prototype.SocketStates.Open;
 
       if (this._options.DebugMode) {
-        console.log('Connected, hearbeat started (every ' + this._options.Heartbeat + ' seconds).');
+        console.log('Connected.');
       }
 
       this.Connected();
@@ -130,11 +127,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     _OnMessage: function(event) {
       var instance = this;
-      if (event.data === this._options.HeartbeatPackage) {
-        window.clearTimeout(instance._heartbeat);
-        this._heartbeat = window.setTimeout(function() { instance._HeartBeat(); }, instance._options.Heartbeat * 1000);
-        return;
-      }
 
       this._lastReceive = (new Date()).getTime();
 
@@ -148,39 +140,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     _OnClose: function() {
       var instance = this;
       if (this._options.DebugMode) {
-        console.log('Connection closed. Heartbeat stopped.');
+        console.log('Connection closed.');
       }
 
-      window.clearTimeout(instance._heartbeat);
       this.SocketState = Alchemy.prototype.SocketStates.Closed;
 
       this.Disconnected();
-    },
-
-    _HeartBeat: function() {
-      var instance = this;
-      if (this._socket.readyState !== undefined && this._socket.readyState === 1) {
-        var now = (new Date()).getTime();
-        var diff = now - this._lastReceive;
-
-        if (this._options.DebugMode) {
-          console.log('Heartbeat fired. ' + diff + 'ms since the last one.');
-        }
-
-        if (diff >= this._options.Heartbeat * 1000) {
-          this._socket.send(instance._options.HeartbeatPackage);
-        }
-      }
-
-      window.clearTimeout(instance._heartbeat);
-      this._heartbeat = window.setTimeout(function() { instance._HeartBeat(); }, instance._options.Heartbeat * 1000);
     }
   };
 
   Alchemy.prototype._defaultOptions = {
     Port: 81,
-    Heartbeat: 25,
-    HeartbeatPackage: '7', //Default for Alchemy
     Server: '',
     Action: '',
     SocketType: Alchemy.prototype.SocketTypes.WebSocket,
